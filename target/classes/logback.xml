@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>[service] %d{yyyy-MM-dd HH:mm:ss} %c{3}:%L [%m]%n</pattern>
+    </encoder>
+  </appender>
+  <appender name="LOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+    <File>${catalina.home}/logs/RS/log__</File>
+    <encoder>
+      <pattern>[service] %d{yyyy-MM-dd HH:mm:ss} %c : %m%n</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${catalina.home}/logs/RS/log__.%d{yyyy-MM-dd'.log'}</fileNamePattern>
+    </rollingPolicy>
+  </appender>
+  <appender name="ErroMsg" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+    <Append>true</Append>
+    <File>${catalina.home}/logs/RS/error_</File>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %t:%r ] - [ %p ] %m%n</pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+    </filter>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${catalina.home}/logs/RS/error_.%d{yyyy-MM-dd'.log'}</fileNamePattern>
+    </rollingPolicy>
+  </appender>
+  <logger name="com.ets.sys" level="INFO"/>
+  <logger name="org.springframework" level="ERROR"/>
+  <logger name="java.sql.PreparedStatement" level="DEBUG"/>
+  <logger name="com.mybatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG"/>
+  <logger name="com.mybatis.common.jdbc.SimpleDataSource" level="DEBUG"/>
+  <logger name="com.mybatis.common.jdbc.ScriptRunner" level="DEBUG"/>
+  <logger name="java.sql.Statement" level="DEBUG"/>
+  <logger name="com.ets.dao" level="TRACE"/>
+  <logger name="java.sql.ResultSet" level="DEBUG"/>
+  <logger name="com.mybatis" level="DEBUG"/>
+  <logger name="java.sql.Connection" level="DEBUG"/>
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/> 
+    <appender-ref ref="LOGFILE"/>
+    <appender-ref ref="ErroMsg"/>
+  </root>
+</configuration>

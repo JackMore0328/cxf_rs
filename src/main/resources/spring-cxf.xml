@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+						http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd 
+						http://cxf.apache.org/transports/http/configuration
+						http://cxf.apache.org/schemas/configuration/http-conf.xsd">
+						
+	<bean class="com.rs.framwork.baseConfig.InitConfig"/>
+    <bean id="userServiceRestFul" class="com.rs.service.webservice_rs.Rs_Service_Impl"></bean>  
+    
+	<jaxrs:server id="restUserService" address="/restful">  
+        <jaxrs:serviceBeans>  
+            <ref bean="userServiceRestFul" />  
+        </jaxrs:serviceBeans>  
+        <jaxrs:extensionMappings>  
+            <entry key="json" value="application/json" />  
+            <entry key="xml" value="application/xml" />  
+        </jaxrs:extensionMappings>  
+    </jaxrs:server>  
+	
+	
+	
+	<bean id="rs_service" class="org.apache.cxf.jaxrs.client.JAXRSClientFactory" factory-method="create">  
+        <constructor-arg type="java.lang.String" value="http://localhost:8080/rest/" />  
+        <constructor-arg type="java.lang.Class" value="com.rs.service.webservice_rs.Rs_Service" />  
+    </bean>  
+	
+	
+</beans>  
